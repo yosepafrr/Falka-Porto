@@ -1,0 +1,170 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&display=swap');
+
+/* ========================================
+   FALKA FASHION STORE — TAILWIND v4 THEME
+   ======================================== */
+
+@theme {
+  --color-primary: #E8652A;
+  --color-primary-light: #FF8A50;
+  --color-primary-dark: #C44D1A;
+  --color-primary-glow: rgba(232, 101, 42, 0.3);
+  --color-accent: #F5A623;
+  --color-accent-light: #FFD07A;
+
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-serif: 'Playfair Display', Georgia, serif;
+}
+
+/* === DARK MODE (default) === */
+:root,
+[data-theme="dark"] {
+  --bg-primary:     #0A0A0A;
+  --bg-secondary:   #141414;
+  --bg-card:        #1C1C1C;
+  --bg-elevated:    #242424;
+  --bg-input:       #1A1A1A;
+
+  --text-primary:   #FFFFFF;
+  --text-secondary: #B8B8B8;
+  --text-muted:     #707070;
+
+  --border:         #2A2A2A;
+  --border-hover:   #3A3A3A;
+  --glass-bg:       rgba(10, 10, 10, 0.75);
+  --glass-border:   rgba(255, 255, 255, 0.08);
+  --shadow-sm:      0 2px 8px rgba(0,0,0,0.3);
+  --shadow-md:      0 8px 30px rgba(0,0,0,0.4);
+  --shadow-lg:      0 20px 60px rgba(0,0,0,0.5);
+  --shadow-glow:    0 0 40px rgba(232, 101, 42, 0.15);
+
+  --hero-gradient:  linear-gradient(135deg, #0A0A0A 0%, #1A0F0A 50%, #0A0A0A 100%);
+  --section-alt:    #0F0F0F;
+  --overlay:        rgba(0,0,0,0.6);
+
+  color-scheme: dark;
+}
+
+/* === LIGHT MODE === */
+[data-theme="light"] {
+  --bg-primary:     #FAFAF8;
+  --bg-secondary:   #FFFFFF;
+  --bg-card:        #FFFFFF;
+  --bg-elevated:    #F5F3F0;
+  --bg-input:       #F0EEEB;
+
+  --text-primary:   #1A1A1A;
+  --text-secondary: #555555;
+  --text-muted:     #888888;
+
+  --border:         #E8E4DF;
+  --border-hover:   #D0CCC7;
+  --glass-bg:       rgba(255, 255, 255, 0.8);
+  --glass-border:   rgba(0, 0, 0, 0.06);
+  --shadow-sm:      0 2px 8px rgba(0,0,0,0.06);
+  --shadow-md:      0 8px 30px rgba(0,0,0,0.08);
+  --shadow-lg:      0 20px 60px rgba(0,0,0,0.1);
+  --shadow-glow:    0 0 40px rgba(232, 101, 42, 0.08);
+
+  --hero-gradient:  linear-gradient(135deg, #FAFAF8 0%, #FFF5EE 50%, #FAFAF8 100%);
+  --section-alt:    #F5F3F0;
+  --overlay:        rgba(255,255,255,0.6);
+
+  color-scheme: light;
+}
+
+/* === GLOBAL STYLES === */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  transition: background-color 0.4s ease, color 0.4s ease;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif);
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.3s ease;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  font-family: var(--font-sans);
+  transition: all 0.3s ease;
+}
+
+input, textarea {
+  font-family: var(--font-sans);
+  outline: none;
+  border: none;
+  transition: all 0.3s ease;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* === SCROLLBAR === */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
+}
+
+/* === SELECTION === */
+::selection {
+  background: var(--color-primary);
+  color: white;
+}
+
+/* === ANIMATIONS === */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
