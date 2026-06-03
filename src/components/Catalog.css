@@ -1,0 +1,134 @@
+.catalog__filters {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
+}
+
+.catalog__filter-btn {
+  padding: 0.6rem 1.5rem;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.catalog__filter-btn:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.catalog__filter-btn--active {
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  color: white;
+  border-color: transparent;
+  box-shadow: 0 4px 15px var(--primary-glow);
+}
+
+.catalog__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.catalog__cta {
+  text-align: center;
+  margin-top: 3rem;
+}
+
+.catalog__cta .btn-primary .cta-arrow {
+  transition: transform 0.3s ease;
+}
+
+.catalog__cta .btn-primary:hover .cta-arrow {
+  transform: translateX(4px);
+}
+
+/* Catalog Page specific */
+.catalog-page {
+  min-height: 100vh;
+  padding-top: 6rem;
+  padding-bottom: 4rem;
+  background: var(--bg-primary);
+}
+
+.catalog-page__breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  margin-bottom: 2rem;
+}
+
+.catalog-page__breadcrumb a {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  color: var(--text-muted);
+  transition: color 0.3s ease;
+}
+
+.catalog-page__breadcrumb a:hover {
+  color: var(--primary);
+}
+
+.catalog-page__breadcrumb-sep {
+  color: var(--text-muted);
+}
+
+.catalog-page__breadcrumb-current {
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.catalog-page__count {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+}
+
+.catalog-page__count-num {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.catalog-page__count-cat {
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.catalog-page__empty {
+  text-align: center;
+  padding: 5rem 0;
+  font-size: 1.1rem;
+  color: var(--text-muted);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .catalog__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .catalog__grid {
+    grid-template-columns: 1fr;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .catalog__filters {
+    gap: 0.35rem;
+  }
+
+  .catalog__filter-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.78rem;
+  }
+}

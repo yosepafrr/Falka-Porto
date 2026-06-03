@@ -5,18 +5,23 @@ import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
 import HomePage from './pages/HomePage';
 import CatalogPage from './pages/CatalogPage';
+import ScrollToHash from './components/ScrollToHash';
 
 function App() {
   return (
     <ThemeProvider>
-      <div className="min-h-screen flex flex-col">
+      <div className="app">
         <Navbar />
-        <main className="flex-1">
+
+        <ScrollToHash />
+
+        <main>
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/katalog" element={<CatalogPage />} />
           </Routes>
         </main>
+
         <Footer />
         <ScrollToTop />
       </div>

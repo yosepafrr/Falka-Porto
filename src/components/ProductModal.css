@@ -1,0 +1,362 @@
+/* Product Modal */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.modal-backdrop__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+}
+
+.modal {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 900px;
+  max-height: 90vh;
+  overflow-y: auto;
+  border-radius: 24px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-lg);
+}
+
+.modal__close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 20;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.modal__close:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.modal__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+/* Gallery */
+.modal__gallery {
+  padding: 1.5rem 2rem;
+}
+
+.modal__gallery-main {
+  position: relative;
+  aspect-ratio: 3/4;
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--bg-elevated);
+}
+
+.modal__gallery-main img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.modal__gallery-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.4);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.modal__gallery-nav:hover {
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.modal__gallery-nav--prev { left: 0.75rem; }
+.modal__gallery-nav--next { right: 0.75rem; }
+
+.modal__gallery-badge {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  padding: 0.35rem 0.85rem;
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-radius: 50px;
+}
+
+.modal__thumbnails {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+  justify-content: center;
+}
+
+.modal__thumbnail {
+  width: 60px;
+  height: 75px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 2px solid var(--border);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  opacity: 0.6;
+  padding: 0;
+  background: none;
+}
+
+.modal__thumbnail--active {
+  border-color: var(--primary);
+  opacity: 1;
+  box-shadow: 0 0 10px var(--primary-glow);
+}
+
+.modal__thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Details */
+.modal__details {
+  padding: 1.5rem 2rem 1.5rem 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  overflow-y: auto;
+}
+
+.modal__category {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.modal__title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-top: 0.25rem;
+}
+
+.modal__description {
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+/* Colors */
+.modal__colors-title,
+.modal__variants-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.modal__color-list {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.modal__color-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: default;
+}
+
+.modal__color-dot {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  transition: all 0.3s ease;
+}
+
+.modal__color-item:hover .modal__color-dot {
+  transform: scale(1.1);
+  border-color: var(--primary);
+}
+
+.modal__color-name {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+/* Variants */
+.modal__variant-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.modal__variant-btn {
+  padding: 0.6rem 1rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.modal__variant-btn:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.modal__variant-btn--active {
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  color: white;
+  border-color: transparent;
+  box-shadow: 0 4px 15px var(--primary-glow);
+}
+
+.modal__variant-name {
+  display: block;
+  font-weight: 600;
+}
+
+.modal__variant-price {
+  display: block;
+  font-size: 0.7rem;
+  margin-top: 0.2rem;
+  opacity: 0.8;
+}
+
+.modal__variant-btn--active .modal__variant-price {
+  color: rgba(255,255,255,0.8);
+}
+
+/* Price */
+.modal__price-section {
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border);
+}
+
+.modal__price-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.modal__price-value {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-top: 0.25rem;
+}
+
+/* Marketplace Links */
+.modal__marketplace {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.modal__marketplace-link {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.modal__marketplace-link:hover {
+  transform: translateY(-2px);
+  color: white;
+}
+
+.modal__marketplace-link--shopee {
+  background: linear-gradient(135deg, #EE4D2D, #FF6633);
+  box-shadow: 0 4px 15px rgba(238, 77, 45, 0.3);
+}
+
+.modal__marketplace-link--shopee:hover {
+  box-shadow: 0 8px 25px rgba(238, 77, 45, 0.4);
+}
+
+.modal__marketplace-link--tiktok {
+  background: linear-gradient(135deg, #010101, #333);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.modal__marketplace-link--tiktok:hover {
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .modal__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .modal__details {
+    padding: 1.5rem;
+  }
+
+  .modal__gallery {
+    padding: 1.5rem;
+  }
+
+  .modal__marketplace {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-backdrop {
+    padding: 0.5rem;
+  }
+
+  .modal__gallery {
+    padding: 1rem;
+  }
+
+  .modal__details {
+    padding: 1rem;
+  }
+}

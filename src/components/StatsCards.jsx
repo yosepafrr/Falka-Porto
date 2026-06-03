@@ -1,7 +1,8 @@
 import { motion } from 'framer-motion';
 import { useScrollReveal, useCountUp } from '../hooks/useScrollReveal';
 import { SiShopee, SiTiktok } from 'react-icons/si';
-import { FiStar, FiPackage, FiShield } from 'react-icons/fi';
+import { FiStar, FiPackage, FiShield, FiTag } from 'react-icons/fi';
+import './StatsCards.css';
 
 const stats = [
   {
@@ -10,8 +11,7 @@ const stats = [
     sublabel: 'Official Store',
     value: null,
     isBadge: true,
-    gradient: 'from-[#EE4D2D] to-[#FF6633]',
-    iconBg: 'bg-gradient-to-br from-[#EE4D2D] to-[#FF6633]',
+    iconClass: 'stats-cards__icon--shopee',
     platformIcon: <SiShopee size={16} />,
   },
   {
@@ -21,9 +21,18 @@ const stats = [
     value: 48,
     isDecimal: true,
     suffix: '/5.0',
-    gradient: 'from-[#EE4D2D] to-[#FF8A50]',
-    iconBg: 'bg-gradient-to-br from-amber-400 to-amber-500',
+    iconClass: 'stats-cards__icon--star-shopee',
     platformIcon: <SiShopee size={16} />,
+  },
+    {
+    icon: <FiStar size={28} />,
+    label: 'Penilaian Toko',
+    sublabel: 'di TikTok Shop',
+    value: 48,
+    isDecimal: true,
+    suffix: '/5.0',
+    iconClass: 'stats-cards__icon--star-tiktok',
+    platformIcon: <SiTiktok size={16} />,
   },
   {
     icon: <FiPackage size={28} />,
@@ -31,20 +40,17 @@ const stats = [
     sublabel: 'All Platform',
     value: 20000,
     suffix: '+',
-    gradient: 'from-primary to-primary-light',
-    iconBg: 'bg-gradient-to-br from-primary to-primary-light',
+    iconClass: 'stats-cards__icon--sales',
   },
   {
-    icon: <FiStar size={28} />,
-    label: 'Penilaian Toko',
-    sublabel: 'di TikTok Shop',
-    value: 48,
-    isDecimal: true,
-    suffix: '/5.0',
-    gradient: 'from-[#010101] to-[#333]',
-    iconBg: 'bg-gradient-to-br from-pink-500 to-violet-500',
-    platformIcon: <SiTiktok size={16} />,
-  },
+    icon: <FiTag size={28} />,
+    label: 'Affordable Products',
+    title: 'Worth',
+    subtitle: 'Every Rupiah',
+    isTextOnly: true,
+    sublabel: 'dengan kualitas premium',
+    iconClass: 'stats-cards__icon--affordable-products',
+  }
 ];
 
 function StatCard({ stat, index, isVisible }) {
@@ -55,70 +61,44 @@ function StatCard({ stat, index, isVisible }) {
 
   return (
     <motion.div
-      className="relative group rounded-2xl p-6 border transition-all duration-400 hover:-translate-y-2 cursor-default overflow-hidden"
-      style={{
-        background: 'var(--bg-card)',
-        borderColor: 'var(--border)',
-      }}
+      className="stats-cards__card"
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.borderColor = 'var(--color-primary)';
-        e.currentTarget.style.boxShadow = 'var(--shadow-glow)';
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.borderColor = 'var(--border)';
-        e.currentTarget.style.boxShadow = 'none';
-      }}
     >
-      {/* Glow effect on hover */}
-      <div className={`absolute inset-0 opacity-0 group-hover:opacity-5 transition-opacity duration-400 bg-gradient-to-br ${stat.iconBg}`} />
-
-      <div className="relative z-10 flex flex-col items-center text-center gap-3">
-        <div className={`w-14 h-14 rounded-2xl ${stat.iconBg} text-white flex items-center justify-center shadow-lg`}>
+      <div className="stats-cards__card-content">
+        <div className={`stats-cards__icon ${stat.iconClass}`}>
           {stat.icon}
         </div>
 
         {stat.isBadge ? (
-          <div className="flex flex-col items-center gap-1">
-            <div className="flex items-center gap-2">
-              <SiShopee size={20} className="text-[#EE4D2D]" />
-              <span className="font-serif text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>
-                Mall
-              </span>
+          <div className="stats-cards__badge-content">
+            <div className="stats-cards__badge-title">
+              <SiShopee size={20} className="shopee-icon" />
+              <span>Mall</span>
             </div>
-            <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-[0.7rem] font-semibold bg-gradient-to-r from-[#EE4D2D] to-[#FF6633] text-white">
+            <span className="stats-cards__verified">
               <FiShield size={12} /> Verified
             </span>
           </div>
+        ) : stat.isTextOnly ? (
+          <div className="stats-cards__text-content">
+            <div className="stats-cards__big-title">{stat.title}</div>
+            <div className="stats-cards__big-subtitle">{stat.subtitle}</div>
+          </div>
         ) : (
-          <div className="flex flex-col items-center gap-1">
-            <div className="flex items-baseline gap-1">
-              <span className="font-serif text-3xl font-bold" style={{ color: 'var(--text-primary)' }}>
-                {display}
-              </span>
-              {stat.suffix && (
-                <span className="text-sm font-medium" style={{ color: 'var(--text-muted)' }}>
-                  {stat.suffix}
-                </span>
-              )}
-            </div>
+          <div className="stats-cards__value">
+            <span className="stats-cards__number">{display}</span>
+            {stat.suffix && <span className="stats-cards__suffix">{stat.suffix}</span>}
           </div>
         )}
 
-        <div className="flex flex-col items-center gap-0.5">
-          <span className="text-[0.8rem] font-semibold" style={{ color: 'var(--text-secondary)' }}>
-            {stat.label}
-          </span>
-          <div className="flex items-center gap-1.5">
-            {stat.platformIcon && (
-              <span style={{ color: 'var(--text-muted)' }}>{stat.platformIcon}</span>
-            )}
-            <span className="text-[0.7rem]" style={{ color: 'var(--text-muted)' }}>
-              {stat.sublabel}
-            </span>
+        <div>
+          <span className="stats-cards__label">{stat.label}</span>
+          <div className="stats-cards__sublabel">
+            {stat.platformIcon && stat.platformIcon}
+            <span>{stat.sublabel}</span>
           </div>
         </div>
       </div>
@@ -130,9 +110,9 @@ export default function StatsCards() {
   const [ref, isVisible] = useScrollReveal({ threshold: 0.2 });
 
   return (
-    <section className="py-[clamp(2rem,5vw,4rem)]" style={{ background: 'var(--bg-primary)' }}>
-      <div className="max-w-[1280px] mx-auto px-[clamp(1rem,4vw,3rem)]" ref={ref}>
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
+    <section className="stats-cards">
+      <div className="container" ref={ref}>
+        <div className="stats-cards__grid">
           {stats.map((stat, i) => (
             <StatCard key={i} stat={stat} index={i} isVisible={isVisible} />
           ))}

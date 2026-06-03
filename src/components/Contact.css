@@ -1,0 +1,202 @@
+.contact {
+  background: var(--bg-primary);
+}
+
+.contact__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+.contact__info {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.contact__info-title {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+}
+
+.contact__info-desc {
+  color: var(--text-secondary);
+  line-height: 1.7;
+  font-size: 0.95rem;
+}
+
+.contact__items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.contact__item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  transition: all 0.3s ease;
+  cursor: default;
+}
+
+a.contact__item {
+  cursor: pointer;
+}
+
+a.contact__item:hover {
+  border-color: var(--primary);
+  transform: translateX(5px);
+}
+
+.contact__item-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.contact__item strong {
+  display: block;
+  font-size: 0.9rem;
+  font-family: 'Inter', sans-serif;
+}
+
+.contact__item span {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* Social Links */
+.contact__social h4 {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.contact__social-links {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.contact__social-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.contact__social-link:hover {
+  transform: translateY(-3px);
+  color: white;
+}
+
+.contact__social-link--shopee {
+  background: linear-gradient(135deg, #EE4D2D, #FF6633);
+  box-shadow: 0 4px 15px rgba(238, 77, 45, 0.3);
+}
+
+.contact__social-link--shopee:hover {
+  box-shadow: 0 8px 25px rgba(238, 77, 45, 0.4);
+}
+
+.contact__social-link--tiktok {
+  background: linear-gradient(135deg, #010101, #333);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.contact__social-link--tiktok:hover {
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+}
+
+/* Form */
+.contact__form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 2.5rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  box-shadow: var(--shadow-md);
+}
+
+.contact__form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.contact__form-group label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.contact__form-group input,
+.contact__form-group textarea {
+  padding: 0.85rem 1.15rem;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.contact__form-group input:focus,
+.contact__form-group textarea:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-glow);
+}
+
+.contact__form-group input::placeholder,
+.contact__form-group textarea::placeholder {
+  color: var(--text-muted);
+}
+
+.contact__form-group textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.contact__submit {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .contact__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact__form {
+    padding: 1.5rem;
+  }
+
+  .contact__social-links {
+    flex-direction: column;
+  }
+
+  .contact__social-link {
+    justify-content: center;
+  }
+}

@@ -2,108 +2,157 @@ import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiStar, FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import { testimonials } from '../data/testimonials';
+import './Testimonials.css';
+
+const ITEMS_PER_PAGE = 3;
+
+const slideVariants = {
+  enter: (direction) => ({
+    x: direction > 0 ? '30%' : direction < 0 ? '-30%' : 0,
+    opacity: 0,
+    scale: 0.98,
+  }),
+  center: {
+    x: 0,
+    opacity: 1,
+    scale: 1,
+  },
+  exit: (direction) => ({
+    x: direction < 0 ? '30%' : direction > 0 ? '-30%' : 0,
+    opacity: 0,
+    scale: 0.98,
+  }),
+};
 
 export default function Testimonials() {
-  const [current, setCurrent] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
+  const [[page, direction], setPage] = useState([0, 0]);
+
+  const totalPages = Math.ceil(
+    testimonials.length / ITEMS_PER_PAGE
+  );
 
   const next = useCallback(() => {
-    setCurrent(prev => (prev + 1) % testimonials.length);
-  }, []);
+    setPage(([prevPage]) => {
+      const nextPage = (prevPage + 1) % totalPages;
+      return [nextPage, 1];
+    });
+  }, [totalPages]);
 
   const prev = () => {
-    setCurrent(prev => (prev - 1 + testimonials.length) % testimonials.length);
+    setPage(([prevPage]) => {
+      const nextPage = (prevPage - 1 + totalPages) % totalPages;
+      return [nextPage, -1];
+    });
+  };
+
+  const handleDotClick = (index) => {
+    setPage(([prevPage]) => {
+      if (index === prevPage) return [prevPage, 0];
+      return [index, index > prevPage ? 1 : -1];
+    });
   };
 
   useEffect(() => {
-    if (isPaused) return;
     const timer = setInterval(next, 5000);
-    return () => clearInterval(timer);
-  }, [isPaused, next]);
 
-  const t = testimonials[current];
+    return () => clearInterval(timer);
+  }, [page, next]);
+
+  const visibleTestimonials = testimonials.slice(
+    page * ITEMS_PER_PAGE,
+    page * ITEMS_PER_PAGE + ITEMS_PER_PAGE
+  );
 
   return (
-    <section className="py-[clamp(3rem,8vw,7rem)] relative overflow-hidden" style={{ background: 'var(--section-alt)' }} id="testimoni">
-      <div className="max-w-[1280px] mx-auto px-[clamp(1rem,4vw,3rem)]">
+    <section className="testimonials section" id="testimoni">
+      <div className="container">
         <motion.div
-          className="text-center mb-[clamp(2rem,5vw,4rem)]"
+          className="section-header"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="font-serif text-[clamp(1.8rem,4vw,3rem)] mb-2">Apa Kata Mereka?</h2>
-          <div className="w-[60px] h-[3px] bg-gradient-to-r from-primary to-primary-light mx-auto my-4 rounded-sm" />
-          <p className="text-[clamp(0.95rem,1.5vw,1.1rem)] max-w-[600px] mx-auto" style={{ color: 'var(--text-secondary)' }}>
-            Testimoni dari pelanggan setia Falka Fashion Store
-          </p>
+          <h2>Apa Kata Mereka?</h2>
+          <div className="accent-line" />
+          <p>Testimoni dari pelanggan setia Falka Fashion Store</p>
         </motion.div>
 
-        <div
-          className="flex items-center gap-6 max-w-[800px] mx-auto"
-          onMouseEnter={() => setIsPaused(true)}
-          onMouseLeave={() => setIsPaused(false)}
-        >
+        <div className="testimonials__carousel">
           <button
-            className="hidden md:flex w-12 h-12 rounded-full items-center justify-center border flex-shrink-0 transition-all duration-300 hover:!bg-[var(--color-primary)] hover:text-white hover:!border-[var(--color-primary)] hover:scale-110 cursor-pointer"
-            style={{ background: 'var(--bg-card)', borderColor: 'var(--border)', color: 'var(--text-primary)' }}
+            className="testimonials__nav testimonials__nav--prev"
             onClick={prev}
             aria-label="Previous"
           >
             <FiChevronLeft size={24} />
           </button>
 
-          <div className="flex-1 overflow-hidden min-h-[300px] flex items-center">
-            <AnimatePresence mode="wait">
+          <div className="testimonials__content">
+            <AnimatePresence initial={false} custom={direction} mode="popLayout">
               <motion.div
-                key={current}
-                className="w-full text-center p-10 sm:p-10 p-6 rounded-3xl border"
-                style={{
-                  background: 'var(--bg-card)',
-                  borderColor: 'var(--border)',
-                  boxShadow: 'var(--shadow-md)',
+                key={page}
+                custom={direction}
+                variants={slideVariants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={{
+                  x: { type: 'tween', duration: 0.6, ease: [0.25, 1, 0.5, 1] },
+                  opacity: { duration: 0.45, ease: 'easeOut' },
+                  scale: { duration: 0.6, ease: [0.25, 1, 0.5, 1] },
                 }}
-                initial={{ opacity: 0, x: 50 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -50 }}
-                transition={{ duration: 0.4 }}
+                className="testimonials__cards"
               >
-                <div className="font-serif text-7xl leading-none opacity-40" style={{ color: 'var(--color-primary)' }}>
-                  "
-                </div>
-                <p className="text-[1.05rem] leading-relaxed italic mb-6 -mt-4" style={{ color: 'var(--text-secondary)' }}>
-                  {t.text}
-                </p>
-                <div className="flex justify-center gap-1 mb-5">
-                  {[...Array(5)].map((_, i) => (
-                    <FiStar
-                      key={i}
-                      size={18}
-                      className={i < t.rating ? 'fill-amber-400 text-amber-400' : ''}
-                      style={i >= t.rating ? { color: 'var(--border)' } : {}}
-                    />
-                  ))}
-                </div>
-                <div className="flex items-center justify-center gap-3">
+                {visibleTestimonials.map((t, index) => (
                   <div
-                    className="w-12 h-12 rounded-full flex items-center justify-center text-xl border-2"
-                    style={{ background: 'var(--bg-elevated)', borderColor: 'var(--border)' }}
+                    key={index}
+                    className="testimonials__card"
                   >
-                    {t.avatar}
+                    <div className="testimonials__quote">
+                      "
+                    </div>
+
+                    <p className="testimonials__text">
+                      {t.text}
+                    </p>
+
+                    <div className="testimonials__rating">
+                      {[...Array(5)].map((_, i) => (
+                        <FiStar
+                          key={i}
+                          size={18}
+                          className={
+                            i < t.rating
+                              ? 'testimonials__star--filled'
+                              : 'testimonials__star--empty'
+                          }
+                        />
+                      ))}
+                    </div>
+
+                    <div className="testimonials__author">
+                      <div className="testimonials__avatar">
+                        {t.avatar}
+                      </div>
+
+                      <div>
+                        <strong className="testimonials__name">
+                          {t.name}
+                        </strong>
+
+                        <span className="testimonials__role">
+                          {t.role}
+                        </span>
+                      </div>
+                    </div>
                   </div>
-                  <div className="text-left">
-                    <strong className="text-[0.95rem] block">{t.name}</strong>
-                    <span className="text-[0.75rem] block" style={{ color: 'var(--text-muted)' }}>{t.role}</span>
-                  </div>
-                </div>
+                ))}
               </motion.div>
             </AnimatePresence>
           </div>
 
           <button
-            className="hidden md:flex w-12 h-12 rounded-full items-center justify-center border flex-shrink-0 transition-all duration-300 hover:!bg-[var(--color-primary)] hover:text-white hover:!border-[var(--color-primary)] hover:scale-110 cursor-pointer"
-            style={{ background: 'var(--bg-card)', borderColor: 'var(--border)', color: 'var(--text-primary)' }}
+            className="testimonials__nav testimonials__nav--next"
             onClick={next}
             aria-label="Next"
           >
@@ -111,18 +160,16 @@ export default function Testimonials() {
           </button>
         </div>
 
-        <div className="flex justify-center gap-2 mt-8">
-          {testimonials.map((_, i) => (
+        <div className="testimonials__dots">
+          {[...Array(totalPages)].map((_, i) => (
             <button
               key={i}
-              className={`h-2.5 rounded-full border-none cursor-pointer transition-all duration-300 ${
-                i === current ? 'w-[30px]' : 'w-2.5'
+              className={`testimonials__dot ${
+                i === page
+                  ? 'testimonials__dot--active'
+                  : ''
               }`}
-              style={{
-                background: i === current ? 'var(--color-primary)' : 'var(--border)',
-              }}
-              onClick={() => setCurrent(i)}
-              aria-label={`Go to testimonial ${i + 1}`}
+              onClick={() => handleDotClick(i)}
             />
           ))}
         </div>

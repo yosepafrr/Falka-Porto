@@ -1,25 +1,26 @@
-@import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&display=swap');
-
 /* ========================================
-   FALKA FASHION STORE — TAILWIND v4 THEME
+   FALKA FASHION STORE — GLOBAL DESIGN SYSTEM
    ======================================== */
 
-@theme {
-  --color-primary: #E8652A;
-  --color-primary-light: #FF8A50;
-  --color-primary-dark: #C44D1A;
-  --color-primary-glow: rgba(232, 101, 42, 0.3);
-  --color-accent: #F5A623;
-  --color-accent-light: #FFD07A;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&display=swap');
 
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-serif: 'Playfair Display', Georgia, serif;
+/* === CSS RESET === */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 /* === DARK MODE (default) === */
 :root,
 [data-theme="dark"] {
+  --primary:        #E8652A;
+  --primary-light:  #FF8A50;
+  --primary-dark:   #C44D1A;
+  --primary-glow:   rgba(232, 101, 42, 0.3);
+  --accent:         #F5A623;
+  --accent-light:   #FFD07A;
+
   --bg-primary:     #0A0A0A;
   --bg-secondary:   #141414;
   --bg-card:        #1C1C1C;
@@ -77,10 +78,11 @@
 /* === GLOBAL STYLES === */
 html {
   scroll-behavior: smooth;
+  font-size: 16px;
 }
 
 body {
-  font-family: var(--font-sans);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   background-color: var(--bg-primary);
   color: var(--text-primary);
   line-height: 1.6;
@@ -91,7 +93,7 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-serif);
+  font-family: 'Playfair Display', Georgia, serif;
   line-height: 1.2;
   font-weight: 700;
 }
@@ -112,12 +114,12 @@ button {
   cursor: pointer;
   border: none;
   outline: none;
-  font-family: var(--font-sans);
+  font-family: 'Inter', sans-serif;
   transition: all 0.3s ease;
 }
 
 input, textarea {
-  font-family: var(--font-sans);
+  font-family: 'Inter', sans-serif;
   outline: none;
   border: none;
   transition: all 0.3s ease;
@@ -125,8 +127,100 @@ input, textarea {
 
 ul {
   list-style: none;
-  margin: 0;
-  padding: 0;
+}
+
+/* === UTILITY CLASSES === */
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 clamp(1rem, 4vw, 3rem);
+}
+
+.section {
+  padding: clamp(3rem, 8vw, 7rem) 0;
+}
+
+.section-alt {
+  background-color: var(--section-alt);
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: clamp(2rem, 5vw, 4rem);
+}
+
+.section-header h2 {
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  margin-bottom: 0.5rem;
+}
+
+.section-header .accent-line {
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary), var(--primary-light));
+  margin: 1rem auto;
+  border-radius: 2px;
+}
+
+.section-header p {
+  font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* === BUTTONS === */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 2rem;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+  transition: left 0.5s ease;
+}
+
+.btn:hover::before {
+  left: 100%;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  color: #fff;
+  box-shadow: 0 4px 20px var(--primary-glow);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px var(--primary-glow);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--text-primary);
+  border: 2px solid var(--border);
+}
+
+.btn-outline:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  transform: translateY(-2px);
 }
 
 /* === SCROLLBAR === */
@@ -144,19 +238,59 @@ ul {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-primary);
+  background: var(--primary);
 }
 
 /* === SELECTION === */
 ::selection {
-  background: var(--color-primary);
+  background: var(--primary);
   color: white;
 }
 
+/* === RESPONSIVE IMAGES === */
+.img-cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 /* === ANIMATIONS === */
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 @keyframes pulse {
@@ -164,7 +298,28 @@ ul {
   50% { transform: scale(1.05); }
 }
 
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
 @keyframes shimmer {
   0% { background-position: -200% center; }
   100% { background-position: 200% center; }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* === APP LAYOUT === */
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app main {
+  flex: 1;
 }
